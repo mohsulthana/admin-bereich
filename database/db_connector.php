@@ -90,20 +90,6 @@ class DBConnector
         return $users;
     }
 
-    public function getAllBills()
-    {
-        $userRepository = $this->em->getRepository('Gemueseeggli\Database\Model\Bill');
-        return $userRepository->findAll();
-    }
-
-    public function getBills($top, $skip, $title, $orderBy, $orderByDesc)
-    {
-        $queries = new Queries();
-        $bills = $queries->getBills($this->em, $top, $skip, $title, $orderBy, $orderByDesc);
-
-        return $bills;
-    }
-
     public function getUser($id)
     {
         $userRepository = $this->em->getRepository('Gemueseeggli\Database\Model\User');

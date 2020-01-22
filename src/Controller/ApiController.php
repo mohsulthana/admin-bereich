@@ -72,37 +72,6 @@ class ApiController extends AbstractController
         return $response->withJSON($data);
     }
 
-    public function getBills(Request $request, Response $response, $args)
-    {
-        $queryParams = $request->getQueryParams();
-        foreach ($queryParams as $key => $param) {
-            if ($key == 'Top') {
-                $top = $param;
-            }
-            if ($key == 'Skip') {
-                $skip = $param;
-            }
-            if ($key == 'Title') {
-                $title = $param;
-            }
-            if ($key == 'OrderBy') {
-                $orderBy = $param;
-            }
-            if ($key == 'OrderByDesc') {
-                $orderByDesc = $param;
-            }
-        }
-        $bills = $this->db->getBills($top, $skip, $title, $orderBy, $orderByDesc);
-        $data = [];
-        $data['draw'] = 0;
-        $data['recordsTotal'] = count($this->db->getAllBills());
-        $data['recordsFiltered'] = count($bills);
-
-        $bills = array_slice ($bills, $skip, $top);
-        $data['data'] = $bills;
-        return $response->withJSON($data);
-    }
-
     public function getAbos(Request $request, Response $response, $args)
     {
         $abos = $this->db->getAbosByUserId($args['id']);
