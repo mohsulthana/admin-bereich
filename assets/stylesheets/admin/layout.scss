@@ -1,0 +1,27 @@
+/* Layout file */
+
+.viewUpload img {
+  max-width: 100%;
+}
+
+.table-data-table{
+  td:last-child{
+  text-align: center;
+  }
+}
+
+textarea {
+    resize: none;
+}
+
+.datatable-action-td{
+  width: 50px;
+}
+
+.modal-xl{
+  width: 1000px;
+}
+
+.modal {
+  overflow-y:auto;
+}

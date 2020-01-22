@@ -1,0 +1,36 @@
+{% include 'website/common/header.twig' %}
+
+<div id="register-index">
+	<div class="row centered-form">
+		<div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Registrieren<small> Kostenlos!</small></h3>
+				</div>
+				<div class="panel-body">
+					<form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="register-form">
+						<div class="form-group">
+							<label for="emailRegister">E-Mail</label>
+							<input type="email" name="emailRegister" id="emailRegister" class="form-control input-sm" placeholder="E-Mail" required>
+						</div>
+
+						<div class="form-group">
+							<label for="passwordRegister">Passwort</label>
+							<input type="password" name="passwordRegister" id="passwordRegister" class="form-control input-sm" placeholder="Passwort" required>
+						</div>
+
+						<div class="form-group">
+							<label for="passwordConfirmRegister">Passwort wiederholen</label>
+							<input type="password" name="passwordConfirmRegister" id="passwordConfirmRegister" class="form-control input-sm" placeholder="Passwort wiederholen" required>
+						</div>
+
+						<input type="submit" value="Registrieren" class="btn btn-info btn-block">
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% include 'website/common/footer.twig' %}

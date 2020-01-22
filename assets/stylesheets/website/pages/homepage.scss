@@ -1,0 +1,33 @@
+.thumbnail{
+	position: relative;
+	.thumbnail-abo-details{
+		padding: 1em;
+		text-align: center;
+		position: absolute;
+		bottom: 0px;
+		width: 100%;
+	}
+
+		.caption{
+		margin-bottom: 30px;
+		}
+
+	@include viewports(up-to medium) {
+    	.caption{
+		margin-bottom: 47px;
+		}
+	}
+}
+
+.thumbnail-abo-row{
+  display: flex;
+  flex-wrap: wrap;
+
+  .abo-box{
+	  display: flex; 
+  }
+
+  .thumbnail{
+	  padding: 1em;
+  }
+}

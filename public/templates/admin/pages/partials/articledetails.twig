@@ -1,0 +1,42 @@
+<div id="articledetails-index">
+    <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="articledetails-form" data-article-id="{{ article.getId() }}">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="{{ article.getName() }}">
+        </div>
+        <div class="form-group">
+            <label for="description">Beschreibung</label>
+            <textarea class="form-control" id="description" name="description" rows="5">{{ article.getDescription() }}</textarea>
+        </div>
+        <div class="form-group">
+            <label>Artikeltypen</label>
+            <button type="button" class="btn btn-success btn-sm pull-right" id="btn-add-articletype" style="margin-bottom:5px">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Neuer Artikeltyp
+            </button>
+            <table id="articletypesTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>Preis</th>
+                        <th>Beschreibung</th>
+                        <th class="sorting_disabled">Aktiv</th>
+                        <th class="sorting_disabled datatable-action-td">Aktion</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="form-group">
+            <label style="display:block">Anzeigebild</label>
+            <img src="{{ article.getArticleImagePath() }}" id="article-image" class="img-thumbnail img-article-details" />
+        </div>
+        <div class="form-group">
+            <input id="article-image-file-input" name="article-image-file-input" type="file" data-show-preview="false">
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        window.articledetailsComponent.init();
+    });
+
+</script>

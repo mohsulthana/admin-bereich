@@ -1,0 +1,16 @@
+//JS
+require('../extensions.js');
+require('../overlay.js');
+require('../notify.js');
+require('../validator.js');
+require('./pages/abodetails.js');
+require('./pages/checkout.js');
+require('./pages/contact.js');
+require('./components/login.js');
+require('./pages/homepage.js');
+require('./pages/register.js');
+require('./pages/forgotpassword.js');
+require('./pages/myabodetail.js');
+require('./pages/myabos.js');
+require('./pages/myprofile.js');
+require('./pages/break.js');

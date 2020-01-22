@@ -1,0 +1,175 @@
+<div id="userdetails-index">
+    <form class="form" role="form" method="post" action="userdetails" accept-charset="UTF-8" id="userdetails-form" data-user-id="{{ user == NULL ? 0 : user.getId() }}">
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Kundendaten</h3>
+                <div class="form-group">
+                    <label for="username">Benutzername</label>
+                    <input type="email" class="form-control" id="username" name="username" placeholder="Benutzername" value="{{ user.getUsername() }}"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="username">Region</label>
+                    <select class="form-control" id="region" name="region">
+                        <option selected value>
+                        {% for region in regions %}
+                            <option value="{{ region.id }}" {{ user.region.id == region.id ? 'selected' : '' }}>{{ region.getName() }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="passwordRegister">Passwort zurücksetzen</label>
+                    <input type="password" name="passwordRegister" id="passwordRegister" class="form-control input-sm" placeholder="Passwort"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="passwordConfirmRegister">Passwort zurücksetzen wiederholen</label>
+                    <input type="password" name="passwordConfirmRegister" id="passwordConfirmRegister" class="form-control input-sm" placeholder="Passwort wiederholen"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label>Unterbrechung</label>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="breakFrom">von</label>
+                                <div class="input-group date">
+                                    <input id="breakFrom" name="breakFrom" type="text" class="form-control" value="{{ pause == null ? '' : pause.startdate.format('d.m.Y')}}"
+                                        {{ pause== null ? '' : 'disabled'}}>
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox checkbox-success">
+                                    <input type="checkbox" {% if user == null or user.isActive %} checked {% endif %} id="isActive" name="isActive">
+                                    <label for="isActive">Aktiv</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="breakTo">bis</label>
+                                <div class="input-group date">
+                                    <input id="breakTo" name="breakTo" type="text" class="form-control" value="{{ pause == null ? '' : pause.enddate.format('d.m.Y')}}"
+                                        {{ pause == null ? '' : 'disabled'}}>
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                </div>
+                            </div>
+
+                            {% if pause != null %}
+                            <div class="form-group">
+                                <button id="btnDeleteBreak" class="btn btn-danger pull-right btn-sm" data-breakid="{{ pause.id }}">Unterbrechung löschen</button>
+                                <input id="breakId" style="display:none" type="text" class="form-control" value="{{ pause == null ? '' : pause.id }}">
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h3>Abos
+                    <button type="button" class="btn btn-success btn-sm pull-right" id="btn-add-abo">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Neues Abo
+                </button>
+                </h3>
+                <table id="abosTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Startdatum</th>
+                            <th>Preis</th>
+                            <th>Guthaben</th>
+                            <th class="sorting_disabled">Aktiv</th>
+                            <th class="sorting_disabled datatable-action-td">Aktion</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Rechnungsadresse</h3>
+                <div class="form-group">
+                    <label for="salutationB">Anrede</label>
+                    <select class="form-control" id="salutationB" name="salutationB">
+                        <option selected value>
+                        {% for salutation in salutations %}
+                            <option value="{{ salutation.getId() }}" {{ user.billingaddress.salutation.id == salutation.id ? 'selected' : '' }}>{{ salutation.getName() }}</option>
+                        {% endfor %}
+                </select>
+                </div>
+                <div class="form-group">
+                    <label for="firstnameB">Vorname*</label>
+                    <input id="firstnameB" name="firstnameB" class="form-control" placeholder="Vorname" type="text" value="{{ user.billingaddress.firstname }}">
+                </div>
+                <div class="form-group">
+                    <label for="lastnameB">Nachname*</label>
+                    <input id="lastnameB" name="lastnameB" class="form-control" placeholder="Nachname" type="text" value="{{ user.billingaddress.name }}">
+                </div>
+                <div class="form-group">
+                    <label for="streetB">Strasse und Hausnummer*</label>
+                    <input id="streetB" name="streetB" class="form-control" placeholder="Strasse und Hausnummer" type="text" value="{{ user.billingaddress.street }}">
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="plzB">PLZ*</label>
+                            <input id="plzB" name="plzB" class="form-control" placeholder="PLZ" type="text" value="{{ user.billingaddress.zip }}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="cityB">Ort*</label>
+                            <input id="cityB" name="cityB" class="form-control" placeholder="Ort" type="text" value="{{ user.billingaddress.town }}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h3>Lieferadresse</h3>
+                <div class="form-group">
+                    <label for="salutationD">Anrede</label>
+                    <select class="form-control" id="salutationD" name="salutationD">
+                        <option selected value>
+                        {% for salutation in salutations %}
+                            <option value="{{ salutation.getId() }}" {{ user.shippingAddress.salutation.id == salutation.id ? 'selected' : '' }}>{{ salutation.getName() }}</option>
+                        {% endfor %}
+                </select>
+                </div>
+                <div class="form-group">
+                    <label for="firstnameD">Vorname*</label>
+                    <input id="firstnameD" name="firstnameD" class="form-control" placeholder="Vorname" type="text" value="{{ user.shippingAddress.firstname }}">
+                </div>
+                <div class="form-group">
+                    <label for="lastnameD">Nachname*</label>
+                    <input id="lastnameD" name="lastnameD" class="form-control" placeholder="Nachname" type="text" value="{{ user.shippingAddress.name }}">
+                </div>
+                <div class="form-group">
+                    <label for="streetD">Strasse und Hausnummer*</label>
+                    <input id="streetD" name="streetD" class="form-control" placeholder="Strasse und Hausnummer" type="text" value="{{ user.shippingAddress.street }}">
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="plzD">PLZ*</label>
+                            <input id="plzD" name="plzD" class="form-control" placeholder="PLZ" type="text" value="{{ user.shippingAddress.zip }}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="cityD">Ort*</label>
+                            <input id="cityD" name="cityD" class="form-control" placeholder="Ort" type="text" value="{{ user.shippingAddress.town }}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        window.userDetailsComponent.init();
+    });
+
+</script>

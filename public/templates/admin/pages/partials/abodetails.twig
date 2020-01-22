@@ -1,0 +1,74 @@
+<div id="abodetails-index">
+    <form class="form" role="form" method="post" action="abodetails" accept-charset="UTF-8" id="abodetails-form" data-abo-id="{{ abo == null ? 0 : abo.getId() }}">
+        <div class="form-group">
+            <label for="article">Artikel</label>
+            <select class="form-control" id="article" name="article">
+                {% for article in articles %}
+                    <option value="{{ article.getId() }}" {{ abo.articletype.article.id == article.id ? 'selected' : '' }}>{{ article.getName() }}</option>
+                {% endfor %}            
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="articletype">Artikeltyp</label>
+            <select class="form-control" id="articletype" name="articletype">
+                {% if abo == null %}
+                {% for articletype in defaultArticle.assignedArticletypes %}
+                <option value="{{ articletype.getId() }}" {{ abo.articletype.id == articletype.id ? 'selected' : '' }}>{{ articletype.price }}</option>
+                {% endfor %}
+                    {% else %}
+                    {% for article in articles %}
+                    {% if (abo.articletype.article.id == article.id) %}
+                    {% for articletype in article.assignedArticletypes %}
+                    <option value="{{ articletype.getId() }}" {{ abo.articletype.id == articletype.id ? 'selected' : '' }}>{{ articletype.price }}</option>
+                    {% endfor %}
+                    {% endif %}                   
+                {% endfor %} 
+                {% endif %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="weekInterval">Häufigkeit</label>
+            <select class="form-control" id="weekInterval" name="weekInterval">
+                   <option value="1" {{ abo.weekInterval == 1 ? 'selected' : '' }}>Jede Woche</option>
+                   <option value="2" {{ abo.weekInterval == 2 ? 'selected' : '' }}>Alle 2 Wochen</option>
+            </select>
+        </div>     
+        <div class="form-group">
+            <label for="origin">Herkunft</label>
+            <select class="form-control" id="origin" name="origin" {{ abo == null or abo.articletype.article.hasOrigin ? '' : 'disabled' }}>
+                    {% for origin in origins %}
+                    <option value="{{ origin.getId() }}" {{ abo.origin.id == origin.id ? 'selected' : '' }}>{{ origin.getName() }}</option>
+                    {% endfor %}
+                </select>
+        </div>
+        <div class="form-group">
+            <label for="firstDelivery">Erste Lieferung ab</label>
+            <div class="input-group date">
+                <input id="firstDelivery" name="firstDelivery" type="text" class="form-control" value="{{ abo.getFormatedStartdate() }}">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="wishes">Inhaltswünsche</label>
+            <textarea class="form-control" rows="5" id="wishes" name="wishes">{{ abo.getWishes() }}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="lastDelivery">Letzte Lieferung am</label>
+            <div class="input-group date">
+                <input id="lastDelivery" name="lastDelivery" type="text" class="form-control" value="{{ abo.getFormatedEnddate() }}">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="credit">Guthaben</label>
+            <input type="number" class="form-control" id="credit" name="credit" placeholder="Guthaben" value="{{ abo.getCredit() }}">
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        window.aboDetailsComponent.init();
+    });
+
+</script>

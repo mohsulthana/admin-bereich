@@ -1,0 +1,30 @@
+{% include 'website/common/header.twig' %}
+
+<div id="homepage-index">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row thumbnail-abo-row">
+                {% for article in articles %}
+                <div class="col-sm-4 col-lg-4 col-md-4 abo-box">
+                    <div class="thumbnail">
+                        <a href="/abos/{{ article.getId() }}">               
+                            <img src="{{ article.getArticleImagePath() }}" alt="">
+                        </a>
+                        <div class="caption">
+                            <h4 class="pull-right">ab {{ article.getLowestPrice() }} CHF</h4>
+                            <h4><a href="/abos/{{ article.getId() }}">{{ article.getName() }}</a>
+                            </h4>
+                            <p>{{ article.getDescription() }}</p>
+                        </div>
+                        <div class="thumbnail-abo-details">
+                            <a href="/abos/{{ article.getId() }}" class="btn btn-success btn-lg">Zum ABO</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'website/common/footer.twig' %}

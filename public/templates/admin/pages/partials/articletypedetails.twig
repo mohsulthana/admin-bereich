@@ -1,0 +1,32 @@
+<div id="articletypedetails-index">
+    <form class="form" role="form" method="post" action="articletypedetails" accept-charset="UTF-8" id="articletypedetails-form"
+        data-articletype-id="{{ articletype == null ? 0 : articletype.id }}">
+        <div class="form-group">
+            <label for="price">Preis</label>
+            <input type="text" class="form-control" id="price" name="price" value="{{ articletype.price }}" />
+        </div>
+        <div class="form-group">
+            <label for="description">Beschreibung</label>
+            <textarea class="form-control" rows="5" id="description" name="description">{{ articletype.description }}</textarea>
+        </div>
+        <div class="form-group">
+            <div class="checkbox checkbox-primary">
+                <input type="checkbox" {% if articletype.onlyAdmin %} checked {% endif %} id="onlyAdmin" name="onlyAdmin">
+                <label for="onlyAdmin">Nur für Admin sichtbar</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="checkbox checkbox-success">
+                <input type="checkbox" {% if articletype.isActive %} checked {% endif %} id="isActive" name="isActive">
+                <label for="isActive">Aktiv</label>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        window.articletypeDetailsComponent.init();
+    });
+
+</script>

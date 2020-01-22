@@ -1,0 +1,28 @@
+<div id="myabodetail-index">
+    <div class="">
+        <h3>{{ abo.articletype.article.name }}</h3><br>
+        <form id="updateAboForm" action="/api/update/abo">
+            {% if abo.articletype.article.hasOrigin %}
+            <div class="form-group">
+                <label for="aboOrigin">Herkunft:</label>
+                <select class="form-control" id="aboOrigin" name="aboOrigin">
+                    <option value="1" {% if abo.origin.id == 1 %} selected {% endif %} >Schweiz</option>
+                    <option value="2" {% if abo.origin.id == 2 %} selected {% endif %} >Saisonal Import</option>
+                    <option value="3" {% if abo.origin.id == 3 %} selected {% endif %} >Egal</option>
+                </select>
+            </div>
+            {% endif %}
+            <input type="text" style="display:none" value="{{ abo.id }}" name="id"/>
+            <div class="form-group">
+                <label for="aboInterval">Häufigkeit:*</label>
+                <select class="form-control" id="aboInterval" name="aboInterval">
+                    <option value="1" {% if abo.weekInterval == 1 %} selected {% endif %} >Jede Woche</option>
+                    <option value="2" {% if abo.weekInterval == 2 %} selected {% endif %} >Alle 2 Wochen</option>
+                </select>
+                <br>
+                <label for="aboWishes">Inhaltswünsche:</label>
+                <textarea class="form-control" rows="5" id="aboWishes" name="aboWishes">{{ abo.wishes }}</textarea>
+            </div>
+        </form>
+    </div>
+</div>

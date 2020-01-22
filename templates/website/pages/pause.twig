@@ -1,0 +1,37 @@
+{% include 'website/common/header.twig' %}
+
+<div id="pause-index">
+    <h1>Unterbrechung</h1>
+    <div class="row">
+        {% if pause == false %}
+        <form id="breakForm">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="breakFrom">von</label>
+                    <div class="input-group date">
+                        <input id="breakFrom" name="breakFrom" type="text" class="form-control" required data-error="Dieses Feld wird benötigt.">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="breakTo">bis</label>
+                    <div class="input-group date">
+                        <input id="breakTo" name="breakTo" type="text" class="form-control" required data-error="Dieses Feld wird benötigt.">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary pull-right">Speichern</button>  
+            </div>
+        </form>
+        {% else %}
+        <div class="col-md-12">
+            <p>Dein Abo ist vom <strong>{{pause.startdate|date('d.m.Y')}}</strong> bis zum <strong>{{pause.enddate|date('d.m.Y')}}</strong> pausiert.</p>
+            <button id="deleteBreakButton" class="btn btn-danger" data-breakid="{{pause.id}}">Unterbrechung löschen</button>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% include 'website/common/footer.twig' %}

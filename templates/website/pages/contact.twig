@@ -1,0 +1,28 @@
+{% include 'website/common/header.twig' %}
+
+<div id="contact-index">
+    <form role="form" method="post" id="formContact">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="name" class="form-control" id="name" name="name" placeholder="Name" value="">
+        </div>
+        <div class="form-group">
+            <label for="email">E-Mail</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="E-Mail" value="">
+        </div>
+        <div class="form-group">
+            <label for="message">Nachricht</label>
+            <textarea class="form-control" rows="5" name="message"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="human">{{ firstNumber }} + {{ secondNumber }} = ?</label>
+            <input type="text" class="form-control" id="humanCheck" name="humanCheck" style="display:none" value="{{ controlNumber }}">
+            <input type="text" class="form-control" id="human" name="human" placeholder="Antwort">
+        </div>
+        <div class="form-group">
+            <input id="btn-submit" name="btn-submit" type="submit" value="Abschicken" class="btn btn-primary">
+        </div>
+    </form>
+</div>
+
+{% include 'website/common/footer.twig' %}

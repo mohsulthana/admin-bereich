@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="de">
+{% include 'website/common/head.twig' %}
+
+<body class="error-body">
+    <div id="404-index">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="error-template">
+                    <h1>
+                        Hoppla!</h1>
+                    <h2>
+                        Fehler 404: Seite nicht gefunden</h2>
+                    <div class="error-details">
+                        Es ist ein Fehler aufgetreten, die angeforderte Seite wurde nicht gefunden!
+                    </div>
+                    <div class="error-actions">
+                        <a href="/" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>
+                        Zur Startseite </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'bootstrap/bootstrap.js.twig' %}
+    <script type="text/javascript" src="/js/website-bundle.js"></script>
+
+</body>
+
+</html>

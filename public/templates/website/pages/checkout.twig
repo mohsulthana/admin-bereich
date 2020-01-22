@@ -1,0 +1,212 @@
+﻿<div id="checkout-index">
+    <div class="row">
+            <div class="col-md-12" >
+                <div class="row col-md-12 accordion-toggle panel-heading" >
+                    <h2 class="row accordion-toggle panel-heading no-vertical-margin" data-toggle="collapse" data-target="#deliveryPart">Art der Lieferung</h2>
+                </div>
+                <div class="row collapse col-md-12 collapse in" id="deliveryPart">    
+                    <p>Die Box wir bequem nach Hause bis zur Hauseingangstür geliefert und müssen NICHT persönlich entgegengenommen werden. Falls wir die Box an einem bestimmten Ort deponieren sollen, bitte dies bei Inhaltswünsche angeben.</p>
+                </div>
+                {% if hasUser == false %}
+                <div class="row col-md-12 accordion-toggle panel-heading" >
+                    <h2 class="row accordion-toggle panel-heading no-vertical-margin" data-toggle="collapse" data-target="#createUserPart">Registrieren</h2>
+                </div>
+                <div class="row collapse col-md-12 collapse in" id="createUserPart">    
+                    <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="register-form">
+						<div class="form-group">
+							<label for="emailRegister">E-Mail</label>
+							<input type="email" name="emailRegister" id="emailRegister" class="form-control input" placeholder="E-Mail" required>
+						</div>
+
+						<div class="form-group">
+							<label for="passwordRegister">Passwort</label>
+							<input type="password" name="passwordRegister" id="passwordRegister" class="form-control input" placeholder="Passwort" required>
+						</div>
+
+						<div class="form-group">
+							<label for="passwordConfirmRegister">Passwort wiederholen</label>
+							<input type="password" name="passwordConfirmRegister" id="passwordConfirmRegister" class="form-control input" placeholder="Passwort wiederholen" required>
+						</div>
+					</form>
+                </div>
+                {% endif %}
+                <form id="orderAboSubmitForm">
+                <div class="row col-md-12 accordion-toggle panel-heading" >
+                    <h2 class="row accordion-toggle panel-heading no-vertical-margin" data-toggle="collapse" data-target="#addressPart">Adressen</h2>
+                </div>
+                <div class="row collapse col-md-12 collapse in" id="addressPart">  
+                    {% if billingAddress is null %}
+                    <div class="col-md-6 row">
+                        <h3>Rechnungsadresse</h3>
+                        <div class="form-group">
+                            <label for="salutationA">Anrede*</label>
+                            <select id="salutationA" name="salutationA" class="form-control">
+                                <option value="1" selected>Herr</option>
+                                <option value="2">Frau</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="firstnameA">Vorname*</label>
+                            <input id="firstnameA" name="firstnameA" class="form-control" placeholder="Vorname" type="text" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastnameA">Nachname*</label>
+                            <input id="lastnameA" name="lastnameA" class="form-control" placeholder="Nachname" type="text" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="streetA">Strasse und Hausnummer*</label>
+                            <input id="streetA" name="streetA" class="form-control" placeholder="Strasse und Hausnummer" type="text" value="">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="plzA">PLZ*</label>
+                                    <input id="plzA" name="plzA" class="form-control" placeholder="PLZ" type="text" value="">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="cityA">Ort*</label>
+                                    <input id="cityA" name="cityA" class="form-control" placeholder="Ort" type="text" value="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox checkbox-success">
+                                <input type="checkbox" id="hasShippingAddress" name="hasShippingAddress">
+                                <label for="hasShippingAddress">
+                                    Andere Lieferadresse
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="col-md-6 row">
+                        <h3>Rechnungsadresse</h3>
+                        <div class="form-group">
+                            <label for="salutationA">Anrede*</label>
+                            <select id="salutationA" name="salutationA" class="form-control">
+                                <option value="1" {% if billingAddress.salutation.id == 1 %} selected {% endif %} >Herr</option>
+                                <option value="2" {% if billingAddress.salutation.id == 2 %} selected {% endif %} >Frau</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="firstnameA">Vorname*</label>
+                            <input id="firstnameA" name="firstnameA" class="form-control" placeholder="Vorname" type="text" value="{{billingAddress.getFirstname()}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastnameA">Nachname*</label>
+                            <input id="lastnameA" name="lastnameA" class="form-control" placeholder="Nachname" type="text" value="{{billingAddress.getName()}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="streetA">Strasse und Hausnummer*</label>
+                            <input id="streetA" name="streetA" class="form-control" placeholder="Strasse und Hausnummer" type="text" value="{{billingAddress.getStreet()}}">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="plzA">PLZ*</label>
+                                    <input id="plzA" name="plzA" class="form-control" placeholder="PLZ" type="text" value="{{billingAddress.getZip()}}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="cityA">Ort*</label>
+                                    <input id="cityA" name="cityA" class="form-control" placeholder="Ort" type="text" value="{{billingAddress.getTown()}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox checkbox-success">
+                                <input type="checkbox" {% if shippingAddress is not null %} checked {% endif %} id="hasShippingAddress" name="hasShippingAddress">
+                                <label for="hasShippingAddress">
+                                    Andere Lieferadresse
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="col-md-6{% if shippingAddress is null %} hidden {% endif %}" id="shippingAddressArea">
+                    {% if shippingAddress is null %}
+                        <h3>Lieferadresse</h3>
+                        <div class="form-group">
+                            <label for="salutationB">Anrede*</label>
+                            <select id="salutationB" name="salutationB" class="form-control">
+                                <option value="1" selected >Herr</option>
+                                <option value="2" >Frau</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="firstnameB">Vorname*</label>
+                            <input id="firstnameB" name="firstnameB" class="form-control" placeholder="Vorname" type="text" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastnameB">Nachname*</label>
+                            <input id="lastnameB" name="lastnameB" class="form-control" placeholder="Nachname" type="text" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="streetB">Strasse und Hausnummer*</label>
+                            <input id="streetB" name="streetB" class="form-control" placeholder="Strasse und Hausnummer" type="text" value="">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="plzB">PLZ*</label>
+                                    <input id="plzB" name="plzB" class="form-control" placeholder="PLZ" type="text" value="">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="cityB">Ort*</label>
+                                    <input id="cityB" name="cityB" class="form-control" placeholder="Ort" type="text" value="">
+                                </div>
+                            </div>
+                        </div>
+                        {% else %}
+                        <h3>Lieferadresse</h3>
+                        <div class="form-group">
+                            <label for="salutationB">Anrede*</label>
+                            <select id="salutationB" name="salutationB" class="form-control">
+                                <option value="1" {% if shippingAddress.salutationid == 1 %} selected {% endif %} >Herr</option>
+                                <option value="2" {% if shippingAddress.salutation.id == 2 %} selected {% endif %} >Frau</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="firstnameB">Vorname*</label>
+                            <input id="firstnameB" name="firstnameB" class="form-control" placeholder="Vorname" type="text" value="{{shippingAddress.getFirstname()}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastnameB">Nachname*</label>
+                            <input id="lastnameB" name="lastnameB" class="form-control" placeholder="Nachname" type="text" value="{{shippingAddress.getName()}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="streetB">Strasse und Hausnummer*</label>
+                            <input id="streetB" name="streetB" class="form-control" placeholder="Strasse und Hausnummer" type="text" value="{{shippingAddress.getStreet()}}">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="plzB">PLZ*</label>
+                                    <input id="plzB" name="plzB" class="form-control" placeholder="PLZ" type="text" value="{{shippingAddress.getZip()}}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="cityB">Ort*</label>
+                                    <input id="cityB" name="cityB" class="form-control" placeholder="Ort" type="text" value="{{shippingAddress.getTown()}}">
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    </div>
+                </div>
+                </form>
+                <div class="row col-md-12 accordion-toggle panel-heading" >
+                    <h2 class="row accordion-toggle panel-heading no-vertical-margin" data-toggle="collapse" data-target="#paymentPart">Zahlungsart</h2>
+                </div>
+                <div class="row collapse col-md-12 collapse in" id="paymentPart">    
+<p><h4>Vorauszahlung per Rechnung</h4> <br>Bei der ersten Lieferung legen wir Ihnen eine Rechnung für 5 Abo Lieferungen in die Box. Diese Rechnung bitten wir Sie innert 10 Tagen zu begleichen. Auf dem beigelegten Lieferschein können Sie Ihr aktuelles Guthaben sehen (die aktuell gelieferte Box ist zu diesem Zeitpunkt noch nicht berücksichtigt).</p>
+                </div>
+            </div>
+        </div>
+</div>

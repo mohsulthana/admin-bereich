@@ -1,0 +1,86 @@
+{% include 'website/common/header.twig' %}
+
+<div id="abodetails-index">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="thumbnail">
+                <img src="{{ article.getArticleImagePath() }}" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h3>{{article.getName()}}</h3>
+            <p>{{article.description}}</p>
+            <form id="orderAboForm">
+                <div class="form-group">
+                    <label for="articletype">Preis:*</label>
+                    <select class="form-control" id="articletype" name="articletype">
+                    {% for articletype in article.assignedArticletypes %}
+                    {% if articletype.onlyAdmin == false %}     
+                    {% if articletype.isActive == true %}
+                    <option value="{{articletype.id }}">{{articletype.price }}</option>                
+                    {% endif %}      
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </div>
+                {% if article.hasOrigin %}
+                <div class="form-group">
+                    <label for="origin">Herkunft:*</label>
+                    <select class="form-control" id="origin" name="origin"> 
+                        {% for origin in origins %}
+                            <option value="{{origin.getId()}}">{{origin.getName()}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% endif %}
+                <div class="form-group">
+                    <label for="aboInterval">Häufigkeit:*</label>
+                    <select class="form-control" id="aboInterval" name="aboInterval">
+                        <option value="1" {% if abo.weekInterval == 1 %} selected {% endif %} >Jede Woche</option>
+                        <option value="2" {% if abo.weekInterval == 1 %} selected {% endif %} >Alle 2 Wochen</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="firstDelivery">Erste Lieferung ab:*</label>
+                    <div class="input-group date">
+                        <input id="firstDelivery" name="startdate" type="text" class="form-control" required data-error="Dieses Feld wird benötigt.">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                    </div>
+                    <div class="help-block with-errors"></div>
+                </div>
+                <div class="form-group">
+                    <label for="wishes">Inhaltswünsche:</label>
+                    <textarea id="wishes" name="wishes" class="form-control" rows="5"></textarea>
+                    <div class="help-block with-errors"></div>
+                </div>
+                <div class="form-group pull-right">
+                    <input type="hidden" name="article" value="{{article.getId()}}" />
+                    <button id="btnOrderAbo" type="button" class="btn btn-primary">Bestellen</button>
+                </div>
+                <a class="btn btn-default pull-left" href="/" role="button" style="margin-right:10px">zurück</a>
+                <a class="btn btn-info pull-left" href="/contact" role="button">Kontaktformular</a>
+            </form>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="orderAboModal" tabindex="-1" role="dialog" aria-labelledby="orderAboModalTitle">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="userDetailsModalTitle">Kasse</h4>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Schliessen</button>
+                        <button type="button" class="btn btn-success pull-right">Bestellung absenden</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% include 'website/common/footer.twig' %}

@@ -1,0 +1,40 @@
+{
+    "name": "HelloSlim3",
+    "description": "A starter kit for small PHP Projects",
+    "keywords": ["slimframework", "starter", "twig","doctrine", "bootstrap"],
+    "homepage": "https://github.com/napolux/helloslim3",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Francesco Napoletano",
+            "email": "napolux@gmail.com",
+            "homepage": "https://napolux.com/"
+        }
+    ],
+    "require-dev": {
+      "guzzlehttp/guzzle": "~6.0",
+      "symfony/css-selector": "dev-master"
+
+    },
+    "require": {
+        "php": ">=5.6.0",
+        "slim/slim": "^3.5",
+        "slim/php-view": "^2.2.0",
+        "monolog/monolog": "^1.17",
+        "slim/twig-view": "^2.1",
+        "slim/http-cache": "^0.3.0",
+        "tuupola/slim-basic-auth": "^2.0",
+        "slim/flash": "dev-master",
+        "doctrine/orm": "^2.5",
+        "symfony/dom-crawler": "^3.1",
+        "vlucas/phpdotenv": "^2.3",
+        "phpmailer/phpmailer": "^5.2",
+        "dompdf/dompdf": "^0.8.0",
+        "setasign/fpdf": "^1.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "Gemueseeggli\\": "src"
+        }
+    }
+}
